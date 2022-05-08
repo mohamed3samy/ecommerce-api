@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Mount Routes
-app.use("/api/categories", categoryRoute);
+app.use("/api/v1/categories", categoryRoute);
 
 const port = process.env.PORT || 5000;
 
