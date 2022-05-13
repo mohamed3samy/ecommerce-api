@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const ApiError = require("../utils/apiError");
-const Category = require("../models/CategoryModel");
+const Category = require("../models/categoryModel");
 
 // @desc	Get list of categories
 // @route	GET /api/v1/categories
@@ -24,7 +24,7 @@ exports.getCategories = asyncHandler(async (req, res) => {
 // @route	POST /api/v1/categories
 // @access	Private
 exports.createCategory = asyncHandler(async (req, res) => {
-	const name = req.body.name;
+	const {name} = req.body;
 	const category = await Category.create({
 		name,
 		slug: slugify(name),
@@ -32,14 +32,6 @@ exports.createCategory = asyncHandler(async (req, res) => {
 
 	res.status(201).json({ data: category });
 });
-
-// exports.createCategory = (req, res) => {
-// 	const name = req.body.name;
-
-// 	Category.create({ name, slug: slugify(name) })
-// 		.then((category) => res.status(201).json({ data: category }))
-// 		.catch((err) => res.status(400).send(err));
-// };
 
 // @desc	Get specific category by id
 // @route	GET /api/v1/categories/:id
@@ -58,7 +50,7 @@ exports.getCategory = asyncHandler(async (req, res, next) => {
 // @desc	Update specific category by id
 // @route	PUT /api/v1/categories/:id
 // @access	Private
-exports.updateCategory = asyncHandler(async (req, res) => {
+exports.updateCategory = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const { name } = req.body;
 
@@ -78,7 +70,7 @@ exports.updateCategory = asyncHandler(async (req, res) => {
 // @desc	Delete specific category by id
 // @route	DELETE /api/v1/categories/:id
 // @access	Private
-exports.deleteCategory = asyncHandler(async (req, res) => {
+exports.deleteCategory = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	const category = await Category.findByIdAndDelete(id);
 
