@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 // Create Schema
 const categorySchema = new mongoose.Schema(
@@ -10,6 +10,7 @@ const categorySchema = new mongoose.Schema(
 		minlength: [3, 'category name must have at least 3 characters'],
 		maxlength: [32, 'category name must have at least 32 characters'],
 	  },
+	  
 	  slug: {
 		type: String,
 		lowercase: true,
@@ -20,6 +21,6 @@ const categorySchema = new mongoose.Schema(
   );
 
 // Create Model
-const CategoryModel = mongoose.model("Category", categorySchema);
+const CategoryModel = mongoose.model('Category', categorySchema);
 
 module.exports = CategoryModel;
