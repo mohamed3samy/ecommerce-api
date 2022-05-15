@@ -8,11 +8,11 @@ const subCategorySchema = new mongoose.Schema(
 			unique: [true, "Subcategory must be uinque"],
 			minlength: [
 				2,
-				"category name must have at least 2 characters",
+				"Subcategory name must have at least 2 characters",
 			],
 			maxlength: [
 				32,
-				"category name must have at least 32 characters",
+				"Subcategory name must have at least 32 characters",
 			],
 		},
 		slug: {
