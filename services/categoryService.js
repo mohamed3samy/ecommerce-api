@@ -4,7 +4,7 @@ const ApiError = require("../utils/apiError");
 const Category = require("../models/categoryModel");
 
 // @desc	Get list of categories
-// @route	GET /api/v1/categories
+// @route	GET /api/categories
 // @access	Public
 exports.getCategories = asyncHandler(async (req, res) => {
 	const page = req.query.page * 1 || 1;
@@ -21,7 +21,7 @@ exports.getCategories = asyncHandler(async (req, res) => {
 });
 
 // @desc	Create category
-// @route	POST /api/v1/categories
+// @route	POST /api/categories
 // @access	Private
 exports.createCategory = asyncHandler(async (req, res) => {
 	const {name} = req.body;
@@ -34,7 +34,7 @@ exports.createCategory = asyncHandler(async (req, res) => {
 });
 
 // @desc	Get specific category by id
-// @route	GET /api/v1/categories/:id
+// @route	GET /api/categories/:id
 // @access	Public
 exports.getCategory = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
@@ -48,7 +48,7 @@ exports.getCategory = asyncHandler(async (req, res, next) => {
 });
 
 // @desc	Update specific category by id
-// @route	PUT /api/v1/categories/:id
+// @route	PUT /api/categories/:id
 // @access	Private
 exports.updateCategory = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
@@ -57,6 +57,7 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
 	const category = await Category.findOneAndUpdate(
 		{ _id: id },
 		{ name, slug: slugify(name) },
+		// return category after update
 		{ new: true }
 	);
 
@@ -68,7 +69,7 @@ exports.updateCategory = asyncHandler(async (req, res, next) => {
 });
 
 // @desc	Delete specific category by id
-// @route	DELETE /api/v1/categories/:id
+// @route	DELETE /api/categories/:id
 // @access	Private
 exports.deleteCategory = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
