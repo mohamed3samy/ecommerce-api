@@ -1,4 +1,5 @@
-const { check } = require("express-validator");
+const { check, body } = require("express-validator");
+const slugify = require("slugify");
 const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 
 exports.getCategoryValidator = [
@@ -13,12 +14,20 @@ exports.createCategoryValidator = [
 		.isLength({ min: 3 })
 		.withMessage("category name must have at least 3 characters")
 		.isLength({ max: 32 })
-		.withMessage("category name must have at most 32 characters"),
+		.withMessage("category name must have at most 32 characters")
+		.custom((value, { req }) => {
+			req.body.slug = slugify(value);
+			return true;
+		}),
 	validatorMiddleware,
 ];
 
 exports.updateCategoryValidator = [
 	check("id").isMongoId().withMessage("Invalid category id format"),
+	body("name").custom((value, { req }) => {
+		req.body.slug = slugify(value);
+		return true;
+	}),
 	validatorMiddleware,
 ];
 
